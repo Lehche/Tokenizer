@@ -282,13 +282,13 @@ def bpe_worker_process(worker_id: int, conn: Connection, file_path : str, start_
 
     del size_temp
 
-    # Création de l'index des positions (array C ultra léger)
+    # Création index positions (array C simplifié)
     positions = defaultdict(lambda: array('I'))
     
     for i, (a, b) in enumerate(zip(values[:-1], values[1:])):
         positions[(a, b)].append(i)
 
-    # Initialisation du compteur à partir de la taille des listes
+    # Init compteur a partir de la taille des listes
     initial_pairs = Counter({pair: len(arr) for pair, arr in positions.items()})
     conn.send(('INIT', initial_pairs))
 
